@@ -45,6 +45,10 @@
 static int boot_enable;
 module_param_named(boot_enable, boot_enable, int, 0444);
 
+#ifndef ETM_ARCH_V4
+#define ETM_ARCH_V4 0x4
+#endif
+
 /* The number of ETMv4 currently registered */
 static int etm4_count;
 static struct etmv4_drvdata *etmdrvdata[NR_CPUS];
