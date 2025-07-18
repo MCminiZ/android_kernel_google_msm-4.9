@@ -801,3 +801,5 @@ CONFIG_TYPEC_UCSI=y
 
 # 防止 drivers/usb/typec/usb-role-switch 空目录
 CONFIG_USB_ROLE_SWITCH=y
+
+CONFIG_HID_SENSOR_IIO_COMMON=y
