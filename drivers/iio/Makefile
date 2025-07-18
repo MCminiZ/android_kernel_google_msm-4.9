@@ -23,7 +23,6 @@ obj-y += gyro/
 obj-y += frequency/
 obj-y += health/
 obj-y += humidity/
-obj-y += imu/
 obj-y += light/
 obj-y += magnetometer/
 obj-y += orientation/
