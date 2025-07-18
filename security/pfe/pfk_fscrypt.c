@@ -36,7 +36,7 @@
 #include <linux/errno.h>
 #include <linux/printk.h>
 
-#include "fscrypt_ice.h"
+#include "../../fs/crypto/fscrypt_ice.h"
 #include "pfk_fscrypt.h"
 
 static bool pfk_fscrypt_ready;
