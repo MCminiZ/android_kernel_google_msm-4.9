@@ -1,8 +1,8 @@
 
 #include <asm/barrier.h>
-#include <linux/compiler.h>	/* for notrace				*/
-#include <linux/math64.h>	/* for __iter_div_u64_rem()		*/
-#include <uapi/linux/time.h>	/* for struct timespec			*/
+#include <linux/compiler.h>
+#include <linux/math64.h>
+#include <uapi/linux/time.h>
 
 #include "compiler.h"
 #include "datapage.h"
@@ -36,7 +36,7 @@ static notrace u32 vdso_read_begin(const struct vdso_data *vd)
 		cpu_relax();
 	} while (true);
 
-	smp_rmb(); /* Pairs with second smp_wmb in update_vsyscall */
+	smp_rmb();
 	return seq;
 }
 
@@ -44,7 +44,7 @@ static notrace int vdso_read_retry(const struct vdso_data *vd, u32 start)
 {
 	u32 seq;
 
-	smp_rmb(); /* Pairs with first smp_wmb in update_vsyscall */
+	smp_rmb(); 
 	seq = READ_ONCE(vd->tb_seq_count);
 	return seq != start;
 }
@@ -84,7 +84,7 @@ static notrace int do_monotonic_coarse(const struct vdso_data *vd,
 	} while (vdso_read_retry(vd, seq));
 
 	ts->tv_sec += tomono.tv_sec;
-	/* open coding timespec_add_ns */
+
 	ts->tv_sec += __iter_div_u64_rem(ts->tv_nsec + tomono.tv_nsec,
 					 NSEC_PER_SEC, &nsec);
 	ts->tv_nsec = nsec;
@@ -94,17 +94,13 @@ static notrace int do_monotonic_coarse(const struct vdso_data *vd,
 
 #ifdef ARCH_PROVIDES_TIMER
 
-/*
- * Returns the clock delta, in nanoseconds left-shifted by the clock
- * shift.
- */
+
 static notrace u64 get_clock_shifted_nsec(const u64 cycle_last,
 					  const u32 mult,
 					  const u64 mask)
 {
 	u64 res;
 
-	/* Read the virtual counter. */
 	res = arch_vdso_read_counter();
 
 	res = res - cycle_last;
@@ -145,7 +141,7 @@ static notrace int do_realtime(const struct vdso_data *vd, struct timespec *ts)
 
 	nsec += get_clock_shifted_nsec(cycle_last, mult, mask);
 	nsec >>= shift;
-	/* open coding timespec_add_ns to save a ts->tv_nsec = 0 */
+
 	ts->tv_sec = sec + __iter_div_u64_rem(nsec, NSEC_PER_SEC, &nsec);
 	ts->tv_nsec = nsec;
 
@@ -189,7 +185,7 @@ static notrace int do_monotonic(const struct vdso_data *vd, struct timespec *ts)
 	nsec += get_clock_shifted_nsec(cycle_last, mult, mask);
 	nsec >>= shift;
 	nsec += wtm_nsec;
-	/* open coding timespec_add_ns to save a ts->tv_nsec = 0 */
+
 	ts->tv_sec = sec + __iter_div_u64_rem(nsec, NSEC_PER_SEC, &nsec);
 	ts->tv_nsec = nsec;
 
@@ -229,7 +225,7 @@ static notrace int do_monotonic_raw(const struct vdso_data *vd,
 
 	nsec += get_clock_shifted_nsec(cycle_last, mult, mask);
 	nsec >>= shift;
-	/* open coding timespec_add_ns to save a ts->tv_nsec = 0 */
+
 	ts->tv_sec = sec + __iter_div_u64_rem(nsec, NSEC_PER_SEC, &nsec);
 	ts->tv_nsec = nsec;
 
@@ -274,14 +270,14 @@ static notrace int do_boottime(const struct vdso_data *vd, struct timespec *ts)
 	nsec >>= shift;
 	nsec += wtm_nsec;
 
-	/* open coding timespec_add_ns to save a ts->tv_nsec = 0 */
+
 	ts->tv_sec = sec + __iter_div_u64_rem(nsec, NSEC_PER_SEC, &nsec);
 	ts->tv_nsec = nsec;
 
 	return 0;
 }
 
-#endif /* ARCH_PROVIDES_TIMER */
+#endif
 
 notrace int __vdso_clock_gettime(clockid_t clock, struct timespec *ts)
 {
@@ -396,7 +392,7 @@ notrace time_t __vdso_time(time_t *t)
 	time_t result;
 
 	if (vd->use_syscall & USE_SYSCALL_MASK) {
-		/* Facsimile of syscall implementation (faster by a few ns) */
+
 		struct timeval tv;
 		int ret = gettimeofday_fallback(&tv, NULL);
 
