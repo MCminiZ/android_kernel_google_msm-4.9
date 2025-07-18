@@ -742,13 +742,62 @@ CONFIG_SND_DUMMY=y
 CONFIG_SND_ALOOP=y
 CONFIG_SND_SERIAL_U16550=y
 
+# 防止 drivers/clk/msm 空目录
+CONFIG_COMMON_CLK_MSM=y
+CONFIG_MSM_GCC_SDM670=y
+
 # 防止 drivers/gpu/drm/omapdrm 空目录
 CONFIG_DRM_OMAP=y
 CONFIG_DRM_OMAP_NUM_CRTCS=1
-# sound/isa
-CONFIG_SND_ISA=y
-CONFIG_SND_OPL3SA2=y
 
-# drivers/gpu/drm/omapdrm
-CONFIG_DRM_OMAP=y
-CONFIG_DRM_OMAP_ENCODER_TPD12S015=y
+# 防止 drivers/iio/common 空目录
+CONFIG_IIO_BUFFER=y
+
+# 防止 drivers/iio/adc 空目录
+CONFIG_IIO_SYSFS_TRIGGER=y
+
+# 防止 drivers/iio/trigger 空目录
+CONFIG_IIO_TRIGGER=y
+
+# 防止 drivers/iio/industrialio-buffer-dma 空目录
+CONFIG_IIO_BUFFER_DMA=y
+
+# 防止 drivers/iio/industrialio-buffer-dmaengine 空目录
+CONFIG_IIO_BUFFER_DMAENGINE=y
+
+# 防止 drivers/iio/industrialio-triggered-buffer 空目录
+CONFIG_IIO_TRIGGERED_BUFFER=y
+
+# 防止 drivers/iio/industrialio-sw-device 空目录
+CONFIG_IIO_SW_DEVICE=y
+
+# 防止 drivers/iio/industrialio-sw-trigger 空目录
+CONFIG_IIO_SW_TRIGGER=y
+
+# 防止 drivers/leds/trigger 空目录
+CONFIG_LEDS_TRIGGER_TIMER=y
+
+# 防止 drivers/usb/phy 空目录
+CONFIG_USB_PHY=y
+
+# 防止 drivers/usb/serial 空目录
+CONFIG_USB_SERIAL=y
+
+# 防止 drivers/usb/typec 空目录
+CONFIG_TYPEC=y
+
+# 防止 drivers/usb/typec/altmodes 空目录
+CONFIG_TYPEC_DP_ALTMODE=y
+
+# 防止 drivers/usb/typec/mux 空目录
+CONFIG_TYPEC_MUX_PI3USB30532=y
+
+# 防止 drivers/usb/typec/tcpm 空目录
+CONFIG_TYPEC_TCPM=y
+
+# 防止 drivers/usb/typec/ucsi 空目录
+CONFIG_UCSI=y
+CONFIG_TYPEC_UCSI=y
+
+# 防止 drivers/usb/typec/usb-role-switch 空目录
+CONFIG_USB_ROLE_SWITCH=y
