@@ -17,7 +17,6 @@ obj-y += adc/
 obj-y += amplifiers/
 obj-y += buffer/
 obj-y += chemical/
-obj-y += common/
 obj-y += dac/
 obj-y += dummy/
 obj-y += gyro/
